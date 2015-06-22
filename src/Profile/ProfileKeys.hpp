@@ -251,6 +251,7 @@ extern const char FlarmLocation[];
 
 extern const char TrackingInterval[];
 extern const char TrackingVehicleType[];
+extern const char TrackingVehicleName[];
 extern const char SkyLinesTrackingEnabled[];
 extern const char SkyLinesTrackingInterval[];
 extern const char SkyLinesTrafficEnabled[];
