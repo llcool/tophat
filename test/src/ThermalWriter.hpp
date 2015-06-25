@@ -1,5 +1,4 @@
-/*
-Copyright_License {
+/* Copyright_License {
 
   XCSoar Glide Computer - http://www.xcsoar.org/
   Copyright (C) 2000-2013 The XCSoar Project
@@ -20,16 +19,38 @@ Copyright_License {
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 }
 */
+#ifndef XCSOAR_THERMAL_WRITER_HPP
+#define XCSOAR_THERMAL_WRITER_HPP
 
-#ifndef XCSOAR_ALTITUDE_SIMULATOR_FULL_SCREEN_PANEL_HPP
-#define XCSOAR_ALTITUDE_SIMULATOR_FULL_SCREEN_PANEL_HPP
+#include "IO/TextWriter.hpp"
+#include "FlightPhaseDetector.hpp"
+#include "IGC/IGCParser.hpp"
+#include "Logger/Settings.hpp"
 
-class Widget;
 
-Widget *
-LoadGpsAltitudeSimulatorPanel(unsigned id);
+class ThermalWriter
+{
+  TextWriter &writer;
 
-Widget *
-LoadAglAltitudeSimulatorPanel(unsigned id);
+public:
+  ThermalWriter(TextWriter &_writer)
+  : writer(_writer) {};
+
+  void
+  WriteThermalList(const PhaseList &phases, const LoggerSettings &logger_settings,
+                   const GliderType &glider_type,
+                   bool append);
+
+  /**
+   *  Writes all thermal records to the output file
+   *  @param phases All phases of flight
+   */
+  void WriteRecord(const Phase &phase,
+                   const LoggerSettings &logger_settings,
+                   const GliderType &glider_type);
+
+  void WriteHeaderRecord();
+
+};
 
 #endif

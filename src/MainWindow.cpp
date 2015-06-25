@@ -276,7 +276,8 @@ MainWindow::InitialiseConfigured()
     widget_overlays.Add(task_nav_slider_widget, rc_current);
   }
 #if defined(ENABLE_OPENGL) | defined(KOBO)
-  widget_overlays.Add(new MainMenuButtonWidget(), rc_current);
+  main_menu_button_widget = new MainMenuButtonWidget();
+  widget_overlays.Add(main_menu_button_widget, rc_current);
   screens_button_widget = new ScreensButtonWidget();
   ZoomInButtonWidget *z_in_but = new ZoomInButtonWidget(screens_button_widget);
   widget_overlays.Add(z_in_but, rc_current);
@@ -814,7 +815,9 @@ MainWindow::OnDestroy()
 
   KillWidget();
   KillBottomWidget();
-
+  KillMainWidget();
+  KillScreenWidget();
+  
   SingleWindow::OnDestroy();
 }
 
@@ -992,7 +995,37 @@ MainWindow::KillWidget()
   delete widget;
   widget = NULL;
 
-  InputEvents::SetFlavour(NULL);
+  InputEvents::SetFlavour(NULL); 
+}
+
+void
+MainWindow::KillScreenWidget()
+{
+#if defined(ENABLE_OPENGL) | defined(KOBO)
+  if (screens_button_widget == NULL)
+    return;
+    
+  screens_button_widget->Leave();
+  screens_button_widget->Hide();
+  screens_button_widget->Unprepare();
+  delete screens_button_widget;
+  screens_button_widget = NULL;
+#endif
+}
+
+void
+MainWindow::KillMainWidget()
+{
+#if defined(ENABLE_OPENGL) | defined(KOBO)
+  if (main_menu_button_widget == NULL)
+    return;
+    
+  main_menu_button_widget->Leave();
+  main_menu_button_widget->Hide();
+  main_menu_button_widget->Unprepare();
+  delete main_menu_button_widget;
+  main_menu_button_widget = NULL;
+#endif
 }
 
 void

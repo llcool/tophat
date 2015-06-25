@@ -48,6 +48,7 @@ class TopographyStore;
 class MapWindowProjection;
 class TaskNavSliderWidget;
 class ScreensButtonWidget;
+class MainMenuButtonWidget;
 
 /**
  * The XCSoar main window.
@@ -153,7 +154,8 @@ private:
   /**
    * used to access screens button widget
    */
-  ScreensButtonWidget *screens_button_widget;
+  MainMenuButtonWidget *main_menu_button_widget = NULL;
+  ScreensButtonWidget *screens_button_widget = NULL;
 #endif
 
 public:
@@ -196,6 +198,16 @@ protected:
    * new bottom Widget.
    */
   void KillBottomWidget();
+
+  /**
+   * Destroy the current Screen Widget.
+   */
+  void KillScreenWidget();
+  
+  /**
+   * Destroy the Main Button Widget.
+   */
+  void KillMainWidget();
 
 public:
   void Create(PixelSize size, TopWindowStyle style=TopWindowStyle());

@@ -144,7 +144,7 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
   if (CommonInterface::main_window != nullptr) {
     CommonInterface::main_window->Destroy();
-    delete CommonInterface::main_window;
+//    delete CommonInterface::main_window;
   }
 
   DeinitialiseIOThread();
